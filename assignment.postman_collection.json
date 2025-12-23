@@ -117,6 +117,107 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "GetProejct",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqaWd5YXNhIiwiaWF0IjoxNzY2NDY2MDE5LCJleHAiOjE3NjY1NTI0MTl9.iZ4FsXazQyU2CfWOwhzS74mEl10tKttGesslKECTv4E",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/projects/user/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projects",
+						"user",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get task",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqaWd5YXNhIiwiaWF0IjoxNzY2NDY2MDE5LCJleHAiOjE3NjY1NTI0MTl9.iZ4FsXazQyU2CfWOwhzS74mEl10tKttGesslKECTv4E",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/projects/1/tasks",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"projects",
+						"1",
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addTasks",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqaWd5YXNhIiwiaWF0IjoxNzY2NDY2MDE5LCJleHAiOjE3NjY1NTI0MTl9.iZ4FsXazQyU2CfWOwhzS74mEl10tKttGesslKECTv4E",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"Design Database Schema\",\r\n  \"description\": \"Create ER diagram and tables\",\r\n  \"status\": \"PENDING\",\r\n  \"dueDate\": \"2025-02-15\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/projects/1/tasks",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"projects",
+						"1",
+						"tasks"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
