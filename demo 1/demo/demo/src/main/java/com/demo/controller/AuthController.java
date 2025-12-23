@@ -4,6 +4,7 @@ package com.demo.controller;
 import com.demo.dto.AuthResponse;
 import com.demo.dto.UserLoginRequest;
 import com.demo.dto.UserRegisterRequest;
+import com.demo.dto.UserResponse;
 import com.demo.entity.User;
 import com.demo.repository.UserRepository;
 import com.demo.service.AuthService;
@@ -26,7 +27,7 @@ public class AuthController {
 
 
     @PostMapping("/register")
-    public User register(@Valid @RequestBody UserRegisterRequest request) {
+    public UserResponse register(@Valid @RequestBody UserRegisterRequest request) {
           if (userRepository.existsByUsername(request.getUsername())) {
             throw new RuntimeException("Username already exists");
         }
@@ -39,7 +40,13 @@ public class AuthController {
         user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        return userService.register(user);
+        user = userService.register(user);
+        return new UserResponse(
+                user.getId(),
+                user.getUsername(),
+                user.getEmail()
+        );
+
     }
 
     @PostMapping("/login")
