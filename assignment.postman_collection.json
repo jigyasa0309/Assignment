@@ -1,0 +1,63 @@
+{
+	"info": {
+		"_postman_id": "21bbfd4e-35fc-4610-a0fc-7965bdc21417",
+		"name": "assignment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "50996264",
+		"_collection_link": "https://jigyasa-yadav-9907013.postman.co/workspace/Jigyasa-Yadav's-Workspace~030af193-7f20-48eb-886a-1501bc75adda/collection/50996264-21bbfd4e-35fc-4610-a0fc-7965bdc21417?action=share&source=collection_link&creator=50996264"
+	},
+	"item": [
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"jigyasa\",\r\n    \"password\":\"ji12\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/auth/login"
+			},
+			"response": []
+		},
+		{
+			"name": "register",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"jigyasa\",\r\n    \"email\":\"jigyasa.yadav@tatvasoft.com\",\r\n    \"password\":\"ji12\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/auth/register",
+				"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+			},
+			"response": []
+		}
+	]
+}
