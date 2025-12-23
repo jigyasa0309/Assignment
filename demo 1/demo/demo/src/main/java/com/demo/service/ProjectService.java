@@ -19,7 +19,6 @@ public class ProjectService {
     private final ProjectRepository projectRepository;
     private final UserRepository userRepository;
 
-    // ✅ CREATE PROJECT → RETURN DTO
     public ProjectResponse createProject(Long userId, ProjectRequest request) {
 
         User user = userRepository.findById(userId)
