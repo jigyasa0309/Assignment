@@ -1,6 +1,7 @@
 package com.demo.service;
 
 import com.demo.dto.TaskRequest;
+import com.demo.dto.TaskResponse;
 import com.demo.entity.Project;
 import com.demo.entity.Task;
 import com.demo.entity.TaskStatus;
@@ -19,7 +20,8 @@ public class TaskService {
     private final TaskRepository taskRepository;
     private final ProjectRepository projectRepository;
 
-    public Task addTask(Long projectId, TaskRequest request) {
+    public TaskResponse addTask(Long projectId, TaskRequest request) {
+
         Project project = projectRepository.findById(projectId)
                 .orElseThrow(() -> new RuntimeException("Project not found"));
 
@@ -30,18 +32,26 @@ public class TaskService {
         task.setDueDate(request.getDueDate());
         task.setProject(project);
 
-        return taskRepository.save(task);
+        Task saved = taskRepository.save(task);
+        return mapToResponse(saved);
     }
 
-    public List<Task> getTasks(Long projectId, TaskStatus status, String sortBy) {
+    public List<TaskResponse> getTasks(Long projectId, TaskStatus status, String sortBy) {
+
         Sort sort = Sort.by(sortBy).ascending();
-        if (status != null) {
-            return taskRepository.findByProjectIdAndStatus(projectId, status, sort);
-        }
-        return taskRepository.findByProjectId(projectId, sort);
+
+        List<Task> tasks = (status != null)
+                ? taskRepository.findByProjectIdAndStatus(projectId, status, sort)
+                : taskRepository.findByProjectId(projectId, sort);
+
+        return tasks.stream()
+                .map(this::mapToResponse)
+                .toList();
     }
 
-    public Task updateTask(Long taskId, TaskRequest request) {
+
+    public TaskResponse updateTask(Long taskId, TaskRequest request) {
+
         Task task = taskRepository.findById(taskId)
                 .orElseThrow(() -> new RuntimeException("Task not found"));
 
@@ -50,10 +60,23 @@ public class TaskService {
         task.setStatus(request.getStatus());
         task.setDueDate(request.getDueDate());
 
-        return taskRepository.save(task);
+        Task updated = taskRepository.save(task);
+        return mapToResponse(updated);
     }
 
     public void deleteTask(Long taskId) {
         taskRepository.deleteById(taskId);
+    }
+
+    private TaskResponse mapToResponse(Task t) {
+        return new TaskResponse(
+                t.getId(),
+                t.getTitle(),
+                t.getDescription(),
+                t.getStatus(),
+                t.getDueDate(),
+                t.getCreatedAt(),
+                t.getUpdatedAt()
+        );
     }
 }
