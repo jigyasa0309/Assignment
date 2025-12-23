@@ -1,6 +1,7 @@
 package com.demo.controller;
 
 import com.demo.dto.ProjectRequest;
+import com.demo.dto.ProjectResponse;
 import com.demo.entity.Project;
 import com.demo.service.ProjectService;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,7 @@ public class ProjectController {
     private final ProjectService projectService;
 
     @PostMapping("/add/{userId}")
-    public Project createProject(
+    public ProjectResponse createProject(
             @PathVariable Long userId,
             @RequestBody ProjectRequest request) {
 
@@ -24,12 +25,12 @@ public class ProjectController {
     }
 
     @GetMapping("/user/{userId}")
-    public List<Project> getProjects(@PathVariable Long userId) {
+    public List<ProjectResponse> getProjects(@PathVariable Long userId) {
         return projectService.getAllProjects(userId);
     }
 
     @PutMapping("/update/{projectId}")
-    public Project updateProject(
+    public ProjectResponse updateProject(
             @PathVariable Long projectId,
             @RequestBody ProjectRequest request) {
 
