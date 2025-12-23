@@ -1,13 +1,13 @@
 package com.demo.controller;
 
 import com.demo.dto.TaskRequest;
-import com.demo.entity.Task;
+import com.demo.dto.TaskResponse;
 import com.demo.entity.TaskStatus;
 import com.demo.service.TaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-        import java.util.List;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -16,14 +16,15 @@ public class TaskController {
     private final TaskService taskService;
 
     @PostMapping("/api/projects/{projectId}/tasks")
-    public Task addTask(
+    public TaskResponse addTask(
             @PathVariable Long projectId,
             @RequestBody TaskRequest request) {
+
         return taskService.addTask(projectId, request);
     }
 
     @GetMapping("/api/projects/{projectId}/tasks")
-    public List<Task> getTasks(
+    public List<TaskResponse> getTasks(
             @PathVariable Long projectId,
             @RequestParam(required = false) TaskStatus status,
             @RequestParam(defaultValue = "createdAt") String sortBy) {
@@ -32,9 +33,10 @@ public class TaskController {
     }
 
     @PutMapping("/api/tasks/{taskId}")
-    public Task updateTask(
+    public TaskResponse updateTask(
             @PathVariable Long taskId,
             @RequestBody TaskRequest request) {
+
         return taskService.updateTask(taskId, request);
     }
 
